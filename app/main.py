@@ -13,7 +13,10 @@ app = FastAPI(title="TravelBuddy AI API")
 # allow_origins=["*"] na "Yaar venaalum indha API kitta pesalam" nu artham.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], # Strict security: Only allow React dev server
+    allow_origins=[
+        "http://localhost:5173", 
+        "https://hilarious-queijadas-17a3e8.netlify.app"
+    ], # Allow local dev AND production Netlify frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
