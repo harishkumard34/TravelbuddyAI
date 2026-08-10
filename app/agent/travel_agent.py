@@ -9,7 +9,7 @@ from app.schemas.models import TripRequest
 # temperature=0.5 na AI konjam creativity-oda yosikkum (Not too robotic, not too crazy).
 llm = ChatGroq(
     temperature=0.5,
-    model_name="llama-3.3-70b-versatile", # Indha model thaan ippo use pandrom (Fast & Smart)
+    model_name="llama-3.1-8b-instant", # Stable model for tool calling
     api_key=GROQ_API_KEY
 )
 
