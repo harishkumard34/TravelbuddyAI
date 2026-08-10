@@ -53,30 +53,26 @@ function App() {
     return (
       <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #6b01c2 0%, #644fc1 100%)', color: 'var(--color-on-dark)', textAlign: 'center', padding: '24px', animation: 'fadeIn 1s ease-in' }}>
         
-        <div style={{ padding: '48px', borderRadius: '24px', backgroundColor: 'rgba(23, 23, 23, 0.4)', backdropFilter: 'blur(16px)', boxShadow: '0 24px 64px rgba(0,0,0,0.3)', border: '1px solid rgba(255, 255, 255, 0.15)', maxWidth: '800px', width: '100%' }}>
-          <h1 style={{ fontSize: '80px', letterSpacing: '-2.5px', marginBottom: '24px', textShadow: '0 4px 12px rgba(0,0,0,0.2)' }}>
+        <div className="splash-card">
+          <h1 className="splash-title">
             TravelBuddy <span style={{ color: 'var(--color-primary)' }}>AI</span>
           </h1>
-          <p style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.9)', marginBottom: '48px', lineHeight: '1.6' }}>
+          <p className="splash-subtitle">
             Your personal, intelligent travel companion. <br/> Let AI craft your perfect itinerary strictly within your budget.
           </p>
           
           <button 
             onClick={() => setShowSplash(false)}
+            className="btn-primary"
             style={{ 
-              backgroundColor: 'var(--color-primary)', 
-              color: 'var(--color-on-primary)', 
               fontSize: '22px', 
               fontWeight: 600,
-              padding: '20px 48px', 
-              borderRadius: '8px', 
-              border: 'none',
-              cursor: 'pointer',
+              padding: '20px 48px',
               boxShadow: '0 8px 24px rgba(62, 207, 142, 0.25)',
               transition: 'transform 0.2s ease, background-color 0.2s ease'
             }}
-            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary-deep)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
           >
             Start Your Journey ✈️
           </button>
@@ -88,31 +84,24 @@ function App() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Navigation Bar */}
-      <nav style={{ padding: '20px 48px', borderBottom: '1px solid var(--color-hairline)', backgroundColor: 'var(--color-canvas)', position: 'sticky', top: 0, zIndex: 10 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <h2 style={{ marginBottom: 0, letterSpacing: '-0.72px', fontSize: '28px' }}>TravelBuddy <span style={{ color: 'var(--color-primary)' }}>AI</span></h2>
-          <button className="btn-primary" onClick={() => window.location.reload()} style={{ fontSize: '16px', padding: '10px 20px' }}>New Trip</button>
+      <nav style={{ borderBottom: '1px solid var(--color-hairline)', backgroundColor: 'var(--color-canvas)', position: 'sticky', top: 0, zIndex: 10 }}>
+        <div className="nav-container">
+          <h2 className="nav-title">TravelBuddy <span style={{ color: 'var(--color-primary)' }}>AI</span></h2>
+          <button className="btn-primary" onClick={() => window.location.reload()}>New Trip</button>
         </div>
       </nav>
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, padding: itinerary ? '48px' : '96px 48px', transition: 'all 0.3s ease' }}>
+      <main className={`main-content ${itinerary ? 'main-content-itinerary' : 'main-content-empty'}`}>
         
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: itinerary ? '350px 1fr' : '1fr', 
-          gap: '48px', 
-          maxWidth: itinerary ? '1200px' : '600px', 
-          margin: '0 auto',
-          alignItems: 'start'
-        }}>
+        <div className={`grid-layout ${itinerary ? 'grid-itinerary' : 'grid-empty'}`}>
           
           {/* Left Column / Centered Form */}
           <div style={{ position: itinerary ? 'sticky' : 'static', top: '100px' }}>
             {!itinerary && (
               <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-                <h1 style={{ fontSize: '56px', letterSpacing: '-1.44px', marginBottom: '16px' }}>Plan your next adventure.</h1>
-                <p style={{ fontSize: '20px', color: 'var(--color-ink-mute)' }}>Tell us where you want to go, and our AI will build a complete itinerary strictly within your budget.</p>
+                <h1 className="hero-title">Plan your next adventure.</h1>
+                <p className="text-body" style={{ fontSize: '20px' }}>Tell us where you want to go, and our AI will build a complete itinerary strictly within your budget.</p>
               </div>
             )}
 
@@ -120,17 +109,17 @@ function App() {
               <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: '24px' }}>
                   <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Destination</label>
-                  <input type="text" placeholder="e.g. Goa, Paris, Tokyo" value={destination} onChange={(e) => setDestination(e.target.value)} style={{ padding: '12px', fontSize: '18px' }} required />
+                  <input type="text" placeholder="e.g. Goa, Paris, Tokyo" value={destination} onChange={(e) => setDestination(e.target.value)} required />
                 </div>
 
-                <div style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>
+                <div className="form-row">
                   <div style={{ flex: 1 }}>
                     <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Days</label>
-                    <input type="number" min="1" max="30" value={days} onChange={(e) => setDays(e.target.value)} style={{ padding: '12px', fontSize: '18px' }} required />
+                    <input type="number" min="1" max="30" value={days} onChange={(e) => setDays(e.target.value)} required />
                   </div>
                   <div style={{ flex: 1 }}>
                     <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Budget (Rs.)</label>
-                    <input type="number" min="500" value={budget} onChange={(e) => setBudget(e.target.value)} style={{ padding: '12px', fontSize: '18px' }} required />
+                    <input type="number" min="500" value={budget} onChange={(e) => setBudget(e.target.value)} required />
                   </div>
                 </div>
 
@@ -149,13 +138,13 @@ function App() {
 
           {/* Right Column: Itinerary Results with Tabs */}
           {itinerary && parsedData && (
-            <div style={{ animation: 'fadeIn 0.5s ease-in', backgroundColor: 'var(--color-canvas)', padding: '48px', borderRadius: '16px', border: '1px solid var(--color-hairline)', boxShadow: '0 8px 32px rgba(0,0,0,0.06)' }}>
+            <div style={{ animation: 'fadeIn 0.5s ease-in', backgroundColor: 'var(--color-canvas)', padding: '32px', borderRadius: '16px', border: '1px solid var(--color-hairline)', boxShadow: '0 8px 32px rgba(0,0,0,0.06)' }}>
               
-              <h2 style={{ fontSize: '42px', marginBottom: '16px', letterSpacing: '-0.72px', color: 'var(--color-primary-deep)' }}>✨ Your Epic Journey Awaits</h2>
+              <h2 style={{ fontSize: '36px', marginBottom: '16px', letterSpacing: '-0.72px', color: 'var(--color-primary-deep)' }}>✨ Your Epic Journey</h2>
               
               {/* Intro / Weather Tip */}
               {parsedData.intro && (
-                <div className="markdown-content" style={{ fontSize: '20px', color: 'var(--color-ink-mute)', marginBottom: '32px', paddingBottom: '24px', borderBottom: '1px solid var(--color-hairline)', lineHeight: '1.8' }}>
+                <div className="markdown-content" style={{ fontSize: '18px', color: 'var(--color-ink-mute)', marginBottom: '32px', paddingBottom: '24px', borderBottom: '1px solid var(--color-hairline)', lineHeight: '1.8' }}>
                   <ReactMarkdown>{parsedData.intro}</ReactMarkdown>
                 </div>
               )}
@@ -169,8 +158,8 @@ function App() {
                         key={index}
                         onClick={() => setActiveDay(index)}
                         style={{
-                          padding: '12px 24px',
-                          fontSize: '18px',
+                          padding: '10px 20px',
+                          fontSize: '16px',
                           fontWeight: 600,
                           borderRadius: '8px',
                           border: activeDay === index ? '2px solid var(--color-primary)' : '1px solid var(--color-hairline)',
@@ -189,7 +178,7 @@ function App() {
                   {/* Active Day Content inside a scrollable area */}
                   <div className="markdown-content" style={{ 
                     marginTop: '24px', 
-                    fontSize: '20px', 
+                    fontSize: '18px', 
                     color: 'var(--color-ink-secondary)', 
                     lineHeight: '1.9',
                     maxHeight: '600px',
@@ -208,7 +197,7 @@ function App() {
       </main>
       
       {/* Footer */}
-      <footer style={{ textAlign: 'center', padding: '48px', color: 'var(--color-ink-mute-2)', fontSize: '15px', borderTop: '1px solid var(--color-hairline)', marginTop: 'auto' }}>
+      <footer style={{ textAlign: 'center', padding: '32px', color: 'var(--color-ink-mute-2)', fontSize: '14px', borderTop: '1px solid var(--color-hairline)', marginTop: 'auto' }}>
         <p>© 2026 TravelBuddy AI. Designed with Supabase Aesthetics.</p>
       </footer>
     </div>
