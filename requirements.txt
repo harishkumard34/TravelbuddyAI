@@ -4,6 +4,7 @@ langchain
 langchain-groq
 langchain-community
 duckduckgo-search
+ddgs
 pydantic
 pydantic-settings
 python-dotenv
