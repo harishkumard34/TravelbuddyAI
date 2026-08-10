@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import './index.css';
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
   const [destination, setDestination] = useState('');
   const [days, setDays] = useState(3);
   const [budget, setBudget] = useState(5000);
@@ -41,13 +42,48 @@ function App() {
 
   // Helper to parse the itinerary into days for the Tab UI
   const parseItinerary = (text) => {
-    // Split the text whenever it sees "Day 1:", "Day 2", "Day 1 -", etc.
     const sections = text.split(/(?=Day \d+[:\-])/i);
     const intro = sections[0].toLowerCase().includes('day ') ? '' : sections.shift();
     return { intro, daySections: sections };
   };
 
   const parsedData = itinerary ? parseItinerary(itinerary) : null;
+
+  if (showSplash) {
+    return (
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #6b01c2 0%, #644fc1 100%)', color: 'var(--color-on-dark)', textAlign: 'center', padding: '24px', animation: 'fadeIn 1s ease-in' }}>
+        
+        <div style={{ padding: '48px', borderRadius: '24px', backgroundColor: 'rgba(23, 23, 23, 0.4)', backdropFilter: 'blur(16px)', boxShadow: '0 24px 64px rgba(0,0,0,0.3)', border: '1px solid rgba(255, 255, 255, 0.15)', maxWidth: '800px', width: '100%' }}>
+          <h1 style={{ fontSize: '80px', letterSpacing: '-2.5px', marginBottom: '24px', textShadow: '0 4px 12px rgba(0,0,0,0.2)' }}>
+            TravelBuddy <span style={{ color: 'var(--color-primary)' }}>AI</span>
+          </h1>
+          <p style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.9)', marginBottom: '48px', lineHeight: '1.6' }}>
+            Your personal, intelligent travel companion. <br/> Let AI craft your perfect itinerary strictly within your budget.
+          </p>
+          
+          <button 
+            onClick={() => setShowSplash(false)}
+            style={{ 
+              backgroundColor: 'var(--color-primary)', 
+              color: 'var(--color-on-primary)', 
+              fontSize: '22px', 
+              fontWeight: 600,
+              padding: '20px 48px', 
+              borderRadius: '8px', 
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0 8px 24px rgba(62, 207, 142, 0.25)',
+              transition: 'transform 0.2s ease, background-color 0.2s ease'
+            }}
+            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary-deep)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            Start Your Journey ✈️
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
