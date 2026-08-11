@@ -106,44 +106,44 @@ function App() {
         <div className={`grid-layout ${itinerary ? 'grid-itinerary' : 'grid-empty'}`}>
           
           {/* Left Column / Centered Form */}
-          <div className={itinerary ? "form-column" : ""} style={{ position: itinerary ? 'sticky' : 'static', top: '100px', width: '100%' }}>
-            {!itinerary && (
+          {!itinerary && (
+            <div className="form-column" style={{ width: '100%' }}>
               <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                 <h1 className="hero-title">Plan your next adventure.</h1>
                 <p className="text-body" style={{ fontSize: '20px' }}>Tell us where you want to go, and our AI will build a complete itinerary strictly within your budget.</p>
               </div>
-            )}
 
-            <div className="card-light" style={{ padding: '32px' }}>
-              <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '24px' }}>
-                  <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Destination</label>
-                  <input type="text" placeholder="e.g. Goa, Paris, Tokyo" value={destination} onChange={(e) => setDestination(e.target.value)} required />
-                </div>
-
-                <div className="form-row">
-                  <div style={{ flex: 1 }}>
-                    <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Days</label>
-                    <input type="number" min="1" max="30" value={days} onChange={(e) => setDays(e.target.value)} required />
+              <div className="card-light" style={{ padding: '32px' }}>
+                <form onSubmit={handleSubmit}>
+                  <div style={{ marginBottom: '24px' }}>
+                    <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Destination</label>
+                    <input type="text" placeholder="e.g. Goa, Paris, Tokyo" value={destination} onChange={(e) => setDestination(e.target.value)} required />
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Budget (Rs.)</label>
-                    <input type="number" min="500" value={budget} onChange={(e) => setBudget(e.target.value)} required />
-                  </div>
-                </div>
 
-                <button type="submit" className="btn-primary" style={{ width: '100%', padding: '18px', fontSize: '18px', fontWeight: 600 }} disabled={loading}>
-                  {loading ? 'AI is mapping your journey...' : '✨ Plan My Adventure'}
-                </button>
-              </form>
-            </div>
-            
-            {error && (
-              <div style={{ color: 'var(--color-accent-tomato)', marginTop: '24px', padding: '16px', backgroundColor: '#fff5f5', borderRadius: '8px', fontSize: '16px' }}>
-                <p style={{ margin: 0 }}>{error}</p>
+                  <div className="form-row">
+                    <div style={{ flex: 1 }}>
+                      <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Days</label>
+                      <input type="number" min="1" max="30" value={days} onChange={(e) => setDays(e.target.value)} required />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <label style={{ display: 'block', fontWeight: 500, marginBottom: '8px', fontSize: '16px' }}>Budget (Rs.)</label>
+                      <input type="number" min="500" value={budget} onChange={(e) => setBudget(e.target.value)} required />
+                    </div>
+                  </div>
+
+                  <button type="submit" className="btn-primary" style={{ width: '100%', padding: '18px', fontSize: '18px', fontWeight: 600 }} disabled={loading}>
+                    {loading ? 'AI is mapping your journey...' : '✨ Plan My Adventure'}
+                  </button>
+                </form>
               </div>
-            )}
-          </div>
+              
+              {error && (
+                <div style={{ color: 'var(--color-accent-tomato)', marginTop: '24px', padding: '16px', backgroundColor: '#fff5f5', borderRadius: '8px', fontSize: '16px' }}>
+                  <p style={{ margin: 0 }}>{error}</p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Right Column: Itinerary Results with Tabs */}
           {itinerary && parsedData && (
