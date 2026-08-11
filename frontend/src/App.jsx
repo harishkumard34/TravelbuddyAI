@@ -38,6 +38,7 @@ function App() {
         let rawText = response.data.itinerary;
         let cleanText = rawText.replace(/<[a-z_]+>[\s\S]*?<\/[a-z_]+>/gi, '');
         cleanText = cleanText.replace(/\{"Weather Tip".*?\}/gi, '');
+        cleanText = cleanText.replace(/\*/g, '');
         setItinerary(cleanText.trim());
       } else {
         setError('Received an unexpected response from the AI.');
