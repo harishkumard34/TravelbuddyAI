@@ -194,20 +194,32 @@ input:focus {
 }
 
 .grid-layout {
-  display: grid;
+  display: flex;
+  flex-direction: row;
   gap: 48px;
   margin: 0 auto;
-  align-items: start;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .grid-empty {
-  grid-template-columns: 1fr;
+  justify-content: center;
   max-width: 600px;
 }
 
 .grid-itinerary {
-  grid-template-columns: 350px 1fr;
   max-width: 1200px;
+}
+
+.form-column {
+  flex: 0 0 350px;
+  width: 100%;
+}
+
+.result-column {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
 }
 
 .hero-title {
@@ -259,13 +271,21 @@ input:focus {
   .main-content-itinerary {
     padding: 24px 16px;
   }
-  
+}
+
+@media (max-width: 1024px) {
   .grid-layout {
+    flex-direction: column !important;
+    align-items: center;
     gap: 32px;
   }
-  
-  .grid-itinerary {
-    grid-template-columns: 1fr; /* Stack vertically on mobile */
+  .form-column {
+    flex: none !important;
+    width: 100% !important;
+    max-width: 600px;
+  }
+  .result-column {
+    width: 100% !important;
   }
   
   .hero-title {
