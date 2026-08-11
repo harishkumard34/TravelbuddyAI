@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { generateTripPlan } from './api';
 import ReactMarkdown from 'react-markdown';
 import './index.css';
@@ -15,6 +15,15 @@ function App() {
   
   // New state for Tabs UI
   const [activeDay, setActiveDay] = useState(0);
+
+  // Ref for auto-scrolling to results
+  const resultRef = useRef(null);
+
+  useEffect(() => {
+    if (itinerary && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [itinerary]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,14 +103,16 @@ function App() {
       {/* Main Content Area */}
       <main className={`main-content ${itinerary ? 'main-content-itinerary' : 'main-content-empty'}`}>
         
-        <div className={`grid-layout grid-empty`} style={{ maxWidth: itinerary ? '800px' : '600px' }}>
+        <div className={`grid-layout ${itinerary ? 'grid-itinerary' : 'grid-empty'}`}>
           
-          {!itinerary ? (
-            <div style={{ animation: 'fadeIn 0.5s ease-in' }}>
+          {/* Left Column / Centered Form */}
+          <div style={{ position: itinerary ? 'sticky' : 'static', top: '100px' }}>
+            {!itinerary && (
               <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                 <h1 className="hero-title">Plan your next adventure.</h1>
                 <p className="text-body" style={{ fontSize: '20px' }}>Tell us where you want to go, and our AI will build a complete itinerary strictly within your budget.</p>
               </div>
+            )}
 
             <div className="card-light" style={{ padding: '32px' }}>
               <form onSubmit={handleSubmit}>
@@ -133,9 +144,10 @@ function App() {
               </div>
             )}
           </div>
-          ) : (
-          /* Right Column: Itinerary Results with Tabs */
-            <div style={{ animation: 'fadeIn 0.5s ease-in', backgroundColor: 'var(--color-canvas)', padding: '32px', borderRadius: '16px', border: '1px solid var(--color-hairline)', boxShadow: '0 8px 32px rgba(0,0,0,0.06)' }}>
+
+          {/* Right Column: Itinerary Results with Tabs */}
+          {itinerary && parsedData && (
+            <div ref={resultRef} style={{ animation: 'fadeIn 0.5s ease-in', backgroundColor: 'var(--color-canvas)', padding: '32px', borderRadius: '16px', border: '1px solid var(--color-hairline)', boxShadow: '0 8px 32px rgba(0,0,0,0.06)' }}>
               
               <h2 style={{ fontSize: '36px', marginBottom: '16px', letterSpacing: '-0.72px', color: 'var(--color-primary-deep)' }}>✨ Your Epic Journey</h2>
               
