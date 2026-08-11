@@ -52,7 +52,7 @@ function App() {
 
   // Helper to parse the itinerary into days for the Tab UI
   const parseItinerary = (text) => {
-    const sections = text.split(/(?=Day \d+[:\-])/i);
+    const sections = text.split(/(?:\n|^)(?=(?:#+\s*)?Day \d+[:\-])/i);
     const intro = sections[0].toLowerCase().includes('day ') ? '' : sections.shift();
     return { intro, daySections: sections };
   };
