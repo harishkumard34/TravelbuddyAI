@@ -106,7 +106,7 @@ function App() {
         <div className={`grid-layout ${itinerary ? 'grid-itinerary' : 'grid-empty'}`}>
           
           {/* Left Column / Centered Form */}
-          <div className="form-column" style={{ position: itinerary ? 'sticky' : 'static', top: '100px' }}>
+          <div className={itinerary ? "form-column" : ""} style={{ position: itinerary ? 'sticky' : 'static', top: '100px', width: '100%' }}>
             {!itinerary && (
               <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                 <h1 className="hero-title">Plan your next adventure.</h1>
