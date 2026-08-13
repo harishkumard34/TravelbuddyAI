@@ -12,16 +12,16 @@ graph LR
     classDef default fill:#e0d4fc,stroke:#6b01c2,stroke-width:2px,color:#171717,font-weight:bold,border-radius:8px;
     classDef db fill:#c2f0db,stroke:#3ecf8e,stroke-width:2px,color:#171717,font-weight:bold;
     
-    A[👤 User Input] --> B[🖥️ Frontend UI<br/>(App.jsx)]
-    B --> C[🌐 API Request<br/>(api.js)]
-    C --> D[⚙️ FastAPI Backend<br/>(main.py)]
-    D --> E[🛣️ API Route<br/>(routes.py)]
-    E --> F[🧠 Langchain Agent<br/>(travel_agent.py)]
+    A["👤 User Input"] --> B["🖥️ Frontend UI<br/>(App.jsx)"]
+    B --> C["🌐 API Request<br/>(api.js)"]
+    C --> D["⚙️ FastAPI Backend<br/>(main.py)"]
+    D --> E["🛣️ API Route<br/>(routes.py)"]
+    E --> F["🧠 Langchain Agent<br/>(travel_agent.py)"]
     
-    F <-->|Searches Web| G[🔍 Search Tool<br/>(search_tools.py)]
+    F <-->|"Searches Web"| G["🔍 Search Tool<br/>(search_tools.py)"]
     
-    F -->|Returns Plan| H[📝 JSON Output<br/>(routes.py)]
-    H --> I[✨ UI Display<br/>(App.jsx)]
+    F -->|"Returns Plan"| H["📝 JSON Output<br/>(routes.py)"]
+    H --> I["✨ UI Display<br/>(App.jsx)"]
 ```
 
 ## Tech Stack
