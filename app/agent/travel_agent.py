@@ -10,7 +10,8 @@ from app.schemas.models import TripRequest
 llm = ChatGroq(
     temperature=0.5,
     model_name="qwen/qwen3.6-27b", # Stable model for tool calling since Llama models were decommissioned
-    api_key=GROQ_API_KEY
+    api_key=GROQ_API_KEY,
+    max_tokens=8000
 )
 
 # 2. System Prompt (AI-kkana strict rules):
