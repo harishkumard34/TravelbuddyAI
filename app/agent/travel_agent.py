@@ -11,7 +11,7 @@ llm = ChatGroq(
     temperature=0.5,
     model_name="qwen/qwen3.6-27b", # Stable model for tool calling since Llama models were decommissioned
     api_key=GROQ_API_KEY,
-    max_tokens=8000
+    max_tokens=6000
 )
 
 # 2. System Prompt (AI-kkana strict rules):
