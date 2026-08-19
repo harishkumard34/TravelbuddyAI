@@ -24,6 +24,6 @@ async def plan_trip(request: TripRequest):
             data={"itinerary": ai_response}
         )
     except Exception as e:
-        # 5. ERROR HANDLING:
-        # Edhavadhu thappu nadandhaa (e.g., API server down, timeout), udane user-kku 500 error code-oda reason-a anuppurom.
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
