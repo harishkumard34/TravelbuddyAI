@@ -43,7 +43,8 @@ def generate_trip_plan(request: TripRequest):
     result = graph.invoke(inputs)
     
     # AI ezhudhuna andha kadeisi (final) message-a mattum filter panni edukkukrom.
-    final_message = result["messages"][-1].content
+    import re
+    final_message = re.sub(r'<think>.*?</think>', '', result["messages"][-1].content, flags=re.DOTALL).strip()
     
     # Andha clean Itinerary text-a thiruppi anuppurom.
     return final_message
