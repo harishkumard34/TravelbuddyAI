@@ -9,7 +9,7 @@ from app.schemas.models import TripRequest
 # temperature=0.5 na AI konjam creativity-oda yosikkum (Not too robotic, not too crazy).
 llm = ChatGroq(
     temperature=0.5,
-    model_name="qwen/qwen3.6-27b", # Stable model for tool calling since Llama models were decommissioned
+    model_name="qwen/qwen3.8-27b", # Updated as older Qwen 3.6 was decommissioned
     api_key=GROQ_API_KEY,
     max_tokens=6000
 )
