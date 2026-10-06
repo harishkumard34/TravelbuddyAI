@@ -9,9 +9,9 @@ from app.schemas.models import TripRequest
 # temperature=0.5 na AI konjam creativity-oda yosikkum (Not too robotic, not too crazy).
 llm = ChatGroq(
     temperature=0.5,
-    model_name="qwen/qwen3.8-27b", # Updated as older Qwen 3.6 was decommissioned
+    model_name="openai/gpt-oss-20b", # Switched from Qwen (low OTPM limit) to GPT-OSS-20B (higher limits + tool support)
     api_key=GROQ_API_KEY,
-    max_tokens=6000
+    max_tokens=4000
 )
 
 # 2. System Prompt (AI-kkana strict rules):
