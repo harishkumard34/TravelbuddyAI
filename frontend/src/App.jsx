@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { generateTripPlan } from './api';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './index.css';
 
 function App() {
@@ -36,10 +37,10 @@ function App() {
       const response = await generateTripPlan(destination, days, budget);
       if (response.status === 'success') {
         let rawText = response.data.itinerary;
-        let cleanText = rawText.replace(/<[a-z_]+>[\s\S]*?<\/[a-z_]+>/gi, '');
-        cleanText = cleanText.replace(/\{"Weather Tip".*?\}/gi, '');
-        cleanText = cleanText.replace(/\*/g, '');
-        setItinerary(cleanText.trim());
+        // Only remove AI meta-commentary about tool failures, keep all markdown intact
+        rawText = rawText.replace(/\(I attempted to fetch.*?\)\n?/gis, '');
+        rawText = rawText.replace(/\(Note:.*?tool.*?\)\n?/gis, '');
+        setItinerary(rawText.trim());
       } else {
         setError('Received an unexpected response from the AI.');
       }
@@ -155,7 +156,7 @@ function App() {
               {/* Intro / Weather Tip */}
               {parsedData.intro && (
                 <div className="markdown-content" style={{ fontSize: '18px', color: 'var(--color-ink-mute)', marginBottom: '32px', paddingBottom: '24px', borderBottom: '1px solid var(--color-hairline)', lineHeight: '1.8' }}>
-                  <ReactMarkdown>{parsedData.intro}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{parsedData.intro}</ReactMarkdown>
                 </div>
               )}
 
@@ -195,7 +196,7 @@ function App() {
                     overflowY: 'auto',
                     paddingRight: '16px'
                   }}>
-                    <ReactMarkdown>{parsedData.daySections[activeDay]}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{parsedData.daySections[activeDay]}</ReactMarkdown>
                   </div>
                 </div>
               )}
