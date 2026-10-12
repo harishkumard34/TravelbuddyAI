@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { generateTripPlan } from './api';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import './index.css';
 
 function App() {
@@ -187,7 +188,7 @@ function App() {
           {parsed.intro && (
             <div className="itin-intro">
               <div className="md">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                   {parsed.intro}
                 </ReactMarkdown>
               </div>
@@ -215,7 +216,7 @@ function App() {
               <div className="day-wrap" ref={contentRef}>
                 <div className="day-inner">
                   <div className="md">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                       {parsed.days[activeDay]}
                     </ReactMarkdown>
                   </div>
